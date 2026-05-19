@@ -1360,7 +1360,7 @@ button {
 <section class="step" id="step4">
 <h2>④ お誕生日の記事を書こう</h2>
 <p>「いつ・どんなお祝いをして、どんな表情を見せ、家族がどう感じたか」を書くと新聞らしくなります。</p>
-<div class="hint">稲垣家の○○ちゃんが、2歳のお誕生日を迎えました。大好きな家族に囲まれて、にこにこと笑う姿は、まるで小さなプリンセスのようでした。<br/>この一年でできることがどんどん増え、元気いっぱいに成長しました。家族にとって、これからの毎日も楽しみになる、あたたかく幸せな記念日になりました。</div>
+<div class="hint">稲垣家の○○ちゃんが、●月●日2歳のお誕生日を迎えました。大好きな家族に囲まれて、にこにこと笑う姿は、まるで小さなプリンセスのようでした。<br/>この一年でできることがどんどん増え、元気いっぱいに成長しました。家族にとって、これからの毎日も楽しみになる、あたたかく幸せな記念日になりました。</div>
 <textarea id="articleInput" placeholder="記事本文を入力"></textarea>
 <button class="nextBtn" onclick="nextStep(5)">次へ</button>
 <button class="backBtn" onclick="nextStep(3)">戻る</button>
@@ -1820,7 +1820,7 @@ function makeNewspaper() {
   const sublogo = document.getElementById("sublogoInput").value.trim() || "稲垣家お祝い新聞";
   const headline = document.getElementById("headlineInput").value.trim() || "2歳の笑顔が満開";
   const article = document.getElementById("articleInput").value.trim() ||
-    "垣家のお姫さまが、2歳のお誕生日を迎えました。大好きな家族に囲まれて、にこにこと笑う姿は、まるで小さなプリンセスのようでした。";
+    "稲垣家のお姫さまが、●月●日2歳のお誕生日を迎えました。大好きな家族に囲まれて、にこにこと笑う姿は、まるで小さなプリンセスのようでした。";
   const dateRaw = document.getElementById("dateInput").value;
   const reporter = document.getElementById("reporterInput").value.trim() || "パパ＆ママ";
 
@@ -2505,7 +2505,7 @@ function addArticleHint() {
   const area = document.getElementById("editArticle");
   if (!area) return;
 
-  const hint = "稲垣家の○○ちゃんが、2歳のお誕生日を迎えました。大好きな家族に囲まれて、にこにこと笑う姿は、まるで小さなプリンセスのようでした。この一年でできることがどんどん増え、元気いっぱいに成長しました。家族にとって、これからの毎日も楽しみになる、あたたかく幸せな記念日になりました。";
+  const hint = "稲垣家の○○ちゃんが、●月●日2歳のお誕生日を迎えました。大好きな家族に囲まれて、にこにこと笑う姿は、まるで小さなプリンセスのようでした。この一年でできることがどんどん増え、元気いっぱいに成長しました。家族にとって、これからの毎日も楽しみになる、あたたかく幸せな記念日になりました。";
 
   area.value = hint;
   updatePreviewText();
