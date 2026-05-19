@@ -1305,7 +1305,7 @@ button {
 <section class="step" id="step3">
 <h2>③ 見出しをきめよう</h2>
 <p>写真を見た人が思わず笑顔になる、すてきな見出しにしましょう。</p>
-<div class="hint">例：2歳の笑顔が満開<br/>例：稲垣家のお姫さま 2歳のお誕生日<br/>例：すくすく育つ宝物</div>
+<div class="hint">例：2歳の笑顔が満開<br/>例：お誕生日おめでとう！<br/>例：稲垣家のお姫さま 2歳のお誕生日<br/>例：すくすく育つ宝物</div>
 <input id="headlineInput" placeholder="見出しを入力"/>
 
 <div class="headlineDesignBox">
@@ -1360,7 +1360,7 @@ button {
 <section class="step" id="step4">
 <h2>④ お誕生日の記事を書こう</h2>
 <p>「いつ・どんなお祝いをして、どんな表情を見せ、家族がどう感じたか」を書くと新聞らしくなります。</p>
-<div class="hint">稲垣家の○○ちゃんが、●月●日2歳のお誕生日を迎えました。大好きな家族に囲まれて、にこにこと笑う姿は、まるで小さなプリンセスのようでした。<br/>この一年でできることがどんどん増え、元気いっぱいに成長しました。家族にとって、これからの毎日も楽しみになる、あたたかく幸せな記念日になりました。</div>
+<div class="hint">稲垣家の○○ちゃんが、●月●日2歳のお誕生日を迎えました。大好きな家族に囲まれて、にこにこと笑う姿は、まるで小さなプリンセスのようでした。<br/>この一年でできることがどんどん増え、元気いっぱいに成長しました。</div>
 <textarea id="articleInput" placeholder="記事本文を入力"></textarea>
 <button class="nextBtn" onclick="nextStep(5)">次へ</button>
 <button class="backBtn" onclick="nextStep(3)">戻る</button>
@@ -1452,7 +1452,7 @@ button {
 <textarea id="editArticle" oninput="updatePreviewText()" placeholder="記事本文を入力"></textarea>
 <div class="countLine" id="articleCount">目安：100〜260文字くらい。改行ごとに段落頭が一字下がります。</div>
 <div class="articleLengthNotice" id="articleLengthNotice" style="display:none;">記事の文字量に合わせて、広くなった記事欄の中で読みやすく自動調整します。</div>
-<button onclick="addArticleHint()">お誕生日ヒントを追加</button>
+<button onclick="addArticleHint()">記事のヒントを追加</button>
 </details>
 <details class="editSection">
 <summary>日付・記者名</summary>
@@ -1820,7 +1820,7 @@ function makeNewspaper() {
   const sublogo = document.getElementById("sublogoInput").value.trim() || "稲垣家お祝い新聞";
   const headline = document.getElementById("headlineInput").value.trim() || "2歳の笑顔が満開";
   const article = document.getElementById("articleInput").value.trim() ||
-    "稲垣家のお姫さまが、●月●日2歳のお誕生日を迎えました。大好きな家族に囲まれて、にこにこと笑う姿は、まるで小さなプリンセスのようでした。";
+    "稲垣家の○○ちゃんが、●月●日2歳のお誕生日を迎えました。大好きな家族に囲まれて、にこにこと笑う姿は、まるで小さなプリンセスのようでした。";
   const dateRaw = document.getElementById("dateInput").value;
   const reporter = document.getElementById("reporterInput").value.trim() || "パパ＆ママ";
 
@@ -2083,7 +2083,23 @@ function drawArticleCanvas() {
     String(text || "")
       .replace(/\r\n/g, "\n")
       .replace(/\r/g, "\n")
-  ).map(ch => /[ー－―ｰ〜～]/.test(ch) ? "｜" : ch);
+  ).map(ch => {
+    const map = {
+      "ー": "｜",
+      "－": "｜",
+      "―": "｜",
+      "ｰ": "｜",
+      "〜": "｜",
+      "～": "｜",
+      "【": "︻",
+      "】": "︼",
+      "「": "﹁",
+      "」": "﹂",
+      "（": "︵",
+      "）": "︶"
+    };
+    return map[ch] || ch;
+  });
 
   const visibleChars = chars.filter(ch => ch !== "\n" && ch !== " " && ch !== "　" && ch !== "\t");
   const visibleLen = visibleChars.length;
@@ -2505,7 +2521,7 @@ function addArticleHint() {
   const area = document.getElementById("editArticle");
   if (!area) return;
 
-  const hint = "稲垣家の○○ちゃんが、●月●日2歳のお誕生日を迎えました。大好きな家族に囲まれて、にこにこと笑う姿は、まるで小さなプリンセスのようでした。この一年でできることがどんどん増え、元気いっぱいに成長しました。家族にとって、これからの毎日も楽しみになる、あたたかく幸せな記念日になりました。";
+  const hint = "稲垣家の○○ちゃんが、●月●日2歳のお誕生日を迎えました。大好きな家族に囲まれて、にこにこと笑う姿は、まるで小さなプリンセスのようでした。\n\nこの一年でできることがどんどん増え、元気いっぱいに成長しました。\n\n【パパとママよりメッセージ】　「お誕生日おめでとう！いつもみんなを笑顔にしてくれてありがとう。大好きだよ！」";
 
   area.value = hint;
   updatePreviewText();
@@ -2856,6 +2872,21 @@ function setHeadlineTextColor(color) {
   if (p1) p1.value = window.selectedHeadlineTextColor;
   if (p2) p2.value = window.selectedHeadlineTextColor;
 }
+
+/* ↓ここに追加 */
+
+function convertVerticalChars(text) {
+  return text
+    .replace(/【/g, "︻")
+    .replace(/】/g, "︼")
+    .replace(/「/g, "﹁")
+    .replace(/」/g, "﹂")
+    .replace(/（/g, "︵")
+    .replace(/）/g, "︶");
+}
+
+
+/* ↑ここまで追加 */
 
 
 function setHeadlineFontClass(fontClass) {
