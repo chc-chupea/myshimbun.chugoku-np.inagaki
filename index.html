@@ -1266,6 +1266,78 @@ button {
   background-color: var(--headline-bg-color, #f49ac1) !important;
 }
 
+/* ===== トップ横長サンプル付きバナー ===== */
+.heroTitleWithSample {
+  max-width: 1180px;
+  margin: 18px auto 22px;
+  padding: 16px 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 28px;
+  background: linear-gradient(90deg, #f8b8dc 0%, #ffe2b8 50%, #bdeeff 100%) !important;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(214,133,166,0.18);
+}
+
+.eventSampleImage {
+  width: 120px;
+  height: auto;
+  display: block;
+  border: 3px solid #fff;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.18);
+  background: #fff;
+}
+
+.eventTitleText {
+  text-align: center;
+}
+
+.eventTitleName {
+  font-size: 24px;
+  font-weight: 700;
+  color: #7a5463;
+  line-height: 1.3;
+}
+
+.eventTitleMain {
+  font-size: clamp(26px, 4vw, 42px);
+  font-weight: 900;
+  color: #e85b7f;
+  line-height: 1.35;
+  letter-spacing: 0.06em;
+}
+
+.eventTitleSub {
+  margin-top: 6px;
+  font-size: 15px;
+  color: #7a5463;
+  font-weight: 700;
+}
+
+@media (max-width: 640px) {
+  .heroTitleWithSample {
+    padding: 14px;
+    gap: 12px;
+  }
+
+  .eventSampleImage {
+    width: 80px;
+  }
+
+  .eventTitleName {
+    font-size: 16px;
+  }
+
+  .eventTitleMain {
+    font-size: 23px;
+  }
+
+  .eventTitleSub {
+    font-size: 12px;
+  }
+}
+
 </style>
 
 
@@ -1278,13 +1350,20 @@ button {
 <h1>中国新聞 My新聞づくり</h1>
 
 
-<div class="eventTitle">
-  稲垣家のお姫さま<br/>
-  2歳のお誕生日新聞を作ろう！
-  <small>
-    笑顔・成長・家族のよろこびを、かわいい記念新聞に残そう
-  </small>
+<div class="eventTitle heroTitleWithSample">
+  <img
+    src="sample.jpg"
+    alt="完成サンプル"
+    class="eventSampleImage"
+  />
+
+  <div class="eventTitleText">
+    <div class="eventTitleName">稲垣家のお姫さま</div>
+    <div class="eventTitleMain">2歳のお誕生日新聞を作ろう！</div>
+    <div class="eventTitleSub">特別な一日を、世界にひとつだけの新聞に。</div>
+  </div>
 </div>
+
 
 <section class="step active" id="step1">
 <h2>① お誕生日の写真を選ぼう</h2>
@@ -2521,9 +2600,9 @@ function addArticleHint() {
   const area = document.getElementById("editArticle");
   if (!area) return;
 
-  const hint = "稲垣家の○○ちゃんが、●月●日2歳のお誕生日を迎えました。大好きな家族に囲まれて、にこにこと笑う姿は、まるで小さなプリンセスのようでした。\n\nこの一年でできることがどんどん増え、元気いっぱいに成長しました。\n\n【パパとママよりメッセージ】　「お誕生日おめでとう！いつもみんなを笑顔にしてくれてありがとう。大好きだよ！」";
+  const hint = "\n\n【パパとママよりメッセージ】　「お誕生日おめでとう！いつもみんなを笑顔にしてくれてありがとう。大好きだよ！」";
 
-  area.value = hint;
+  area.value = area.value.trimEnd() + hint;
   updatePreviewText();
 }
 
